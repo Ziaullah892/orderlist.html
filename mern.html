@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width",initial scale="2.0">
+        <title> MERN GUIDE</title>
+        <link rel="stylesheet" href="style1.css">
+    </head>
+    <body>
+        <h1>Crafting a MERN Stack Application with Tailwind CSS and TypeScipt A Step-by-Step Guide </h1>
+        <p class="p1">
+            <img src="https://firebasestorage.googleapis.com/v0/b/mern-blog-b327f.appspot.com/o/1743057963123-photo_2025-03-27%2013.40.00-min.jpeg?alt=media&token=fc4e3665-9516-4b53-9126-58dc0208f468">
+        </p>
+        <p class="p2"> The MERN stack (MongoDB, Express.js) is a powerful combination for building modern web applications. By integrating Tailwind CSS and TypeScript, you can create scalable, maintainable, and aesthetically pleasing applications with ease. This guide will walk you through the step-by-step process of building a MERN stack application with these technologies.</p>
+        <h2> Prerequisites</h2>
+        <p class="p3">
+            Before we begin, ensure you have the following installed:
+            <ul>
+                <li><b> Node.js</b> (LTS version recommended)</li>
+                <li><b> MongoDB</b> (local or cloud-based via MongoDB Atlas)</li>
+                <li><b> npm or yarn</b> (for package management)</li>
+                <li><b> Visual Studio Code </b> (or any preferred code editor)</li>
+            </ul></p>
+            <ul><p class="p4">
+                <h3><b> STEP 1: SETTING UP THE PROTECT</b></h3>
+                Initialize the backend (Express AND MongoDB)<br> 
+            </ul></p>
+            <ol>
+                <li>Create a new project folder:<br>
+                <p class="p5"> mkdir mern-app && cd mern-app<br></li></p>
+                <li>Initialize a Node.js project:<br>
+                <p class="p6"> npm init -y<br></li></p>
+                <li> Install necessary backend dependencies:<br>
+                <p class="p7"> <br> npm install express mongoose cors <br>dotenv</li></p>
+                <li> Install development dependencies<br>
+                <p class="p8"> <br> npm install --save-dev nodemon <br>@types/node @types/express</li></p>
+                <li>Create the required folders:<br>
+                <p class="p9"> <br> mkdir server && cd server<br> mkdir models routes config</li></p>
+                Setup express server<br>
+                Create an index.ts file inside the serverfolder:<br>
+                <p class="p10"> import express from 'express';<br>
+                import cors from 'cors';<br>
+                import mongoose from 'mongoose';<br>
+                import dotenv from 'dotenv';<br>
+                
+                dotenv.config();<br>
+
+                  const app = express();<br>
+                const PORT = process.env.PORT || 5000;<br>
+                
+                app.use(cors());<br>
+                app.use(express.json());<br>
+
+                   mongoose.connect(process.env.MONGO_URI as string)<br>
+                   .then(() => console.log('MongoDB Connected'))<br>
+                   .catch(err => console.error(err));<br>
+                   
+                   app.listen(PORT, ()) => console.log (`Server running <br>
+                   on port ${PORT}`));<br></p>
+                   Configure .env file<br>
+                   create a .env file in the root directory:<br>
+                      <p class="p11"> MONGO_URI=your_mongodb_connection_string<br>
+                         PORT=5000 <br></li> </p>
+               </ol>
+               <ol><h4><b>STEP 2: SETTING UP THE FRONTEND(REACT WITH TypeScript AND TAILWIND CSS)</b></h4></ol>
+               <ol>
+               <li>Initialize react app<br>
+                <p class="p12">npx create-react-app client--template TypeScript<br></li></p>
+                <li>Install Tailwind css<br>
+                    <p class="p13"> cd client<br>
+                    npm install -D tailwindcss postcss autoprefixer<br>
+                    npx tailwindcss init-D<br></br></p>
+                       <li>Configure Tailwind<br>
+                    Update tailwind.config.js:<br>
+                    
+                    <p class="p14">module.exports = {<br>
+                        content:[`./src/**/*.{js,ts,jsxtsx}`],<br>
+                        theme: {<br>
+                            extend:{},<br>
+                        },<br>
+                        plugins: [],<br>
+                    };</li><br></p>
+                    <li>Import Tailwind in index.css:<br>
+
+                        <p class="p15"> @tailwind base;<br>
+                        @tailwind components;<br>
+                    @tailwind utilities;<br></li></p>
+                        </ol>
+                        <ol><b><h5>STEP 3:BUILDING THE UI COMPONENTS</h5></b></ol>
+                        <ol>
+                            <li>Creates a components folder inside src and a Button.tsx file:<br>
+                                <p class="p16">import React from 'react';<br>
+
+           type ButtonProps = {<br>
+               text: string;<br>
+           };<br>
+
+           const Button: React.FC<buttonProps> = ({ text })=> {<br>
+            return (<br>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><br>
+                {text}<br>
+                </button><br>
+            );<br>
+           };<br>
+
+           export default Button; <br></li></p16>
+           </ol></p>
+           <ol><h6><b> STEP 4: CONNECTING THE FRONTEND AND BACKEND </b></h6></ol>
+           <ol>
+            <li>Fetch Data from the Server<br>
+            Modify App.tsx to fetch and display data from the backend:<br>
+            
+            <p class="p17">import React,{ useEffect, useState } from 'react';<br>
+                
+                const App: React.FC = () => {<br>
+                    const [message, setMessage] = useState('');<br>
+
+                    useEffect(() => {<br>
+                        fetch('http://localhost:5000')<br>
+                        .then(response => response.json())<br>
+                        .then(data => setMessage(data.message)):<br>
+                    }, [J];<br?>
+
+                    return (<br>
+                    <div className="flex justify-center items-center h-screen bg-gray-100"><br></p>
+                    <p class="18"><h className="text-x] font bold">{message}</h><br></div><br>
+                    );<br>;<br>
+                    export default App;<br></li>
+                    </ol></p>
+                    <ol><h7><b>STEP 5:RUNNING THE MERN APPLICATION</b></h7></ol>
+                    <ol>
+                        <li>Start the backend server:</li>
+
+                        <p class="p19">cd server<br>
+                        nodemon index.ts<br></p>
+                        Start the frontend application:<br>
+
+                        <p class="p20">cd client<br>
+                        npm start<br></p>
+                        <p class="p21">Your MERN stack application is now running with TypeScript and Tailwind css,offering a robust development experience. <br>
+                        </ol>
+                    </p>
+                        <h8><b>CONCLUSION</b></h8>
+                        <p classs="p22">By following this guide, you have successfully set up a MERN stack TypeScript. This stack provides a powerful foundation for scalable and efficient web applications. You can extend this setup by adding authentication, integrating APIs, and enhancing UI components with Tailwind's utility classes. Happy coding!   </p>
+                        <P CLASS="p23">
+                            <div class="big-box">
+                            <p class="p24"><b>WANT TO LEARN HTML.CSS AND JAVASCRIPT BY<br>
+                            BUILDING FUN AND ENGANGING PROJECT?<br></b>
+                            Check our 100 projects website and start building your own projects<br></P>
+                           <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20221114110410/Top-10-JavaScript-Project-Ideas-For-Beginners-2023.png">
+                           </div>
+                           </P><p>
+                            <p class="p25">
+                                YOU MUST BE SIGNED IN TO COMMENT<P class="p26">Sign In </P><br>
+                            </p>
+                            <h4>COMMENT:</h4><P CLASS="p26"><input type="text" name="comments" size="2" maxlength="10"></P>
+                            <p class="p27"><div class="comment-container"></div>
+                                <div class="user-info"></div>
+                                <div class="fa-solid fa-user"></div>
+                                <div class="user-details"></div>
+                                <div class="comment"><br>
+                                <div class="profile-pic"></div>
+                                <div>
+                                    <span class="username"><b>@Rubab</b></span>
+                                    <span class="time">a month ago</span>
+                                    <p>Hello people! I am Testing This Blog App</p>
+                                    <button class="like-button">Like</button>
+                                    <span>3 likes</span>
+                                </div>
+                            </div>
+                            <div class="comment"><br>
+                                <div class="profile-pic"></div>
+                                <div>
+                                    <span class="username"><b>@Ali</b></span>
+                                    <span class="time">a month ago</span>
+                                    <p>Is it working</p>
+                                    <button class="like-button">Like</button>
+                                    <span>3 likes</span>
+                                </div>
+                            </div>
+                            <div class="comment"><br>
+                                <div class="profile-pic"></div>
+                                <div>
+                                    <span class="username"><b>@Kiran</b></span>
+                                    <span class="time">a month ago</span>
+                                    <p>Hello </p>
+                                    <button class="like-button">Like</button>
+                                    <span>5 likes</span>
+                                </div>
+                            </div>
+                            <div class="comment"><br>
+                                <div class="profile-pic"></div>
+                                <div>
+                                    <span class="username"><b>@Malik</b></span>
+                                    <span class="time">a month ago</span>
+                                    <p>Nice</p>
+                                    <button class="like-button">Like</button>
+                                    <span>1 likes</span>
+                                </div>
+                            </div>
+                            <div class="comment"><br>
+                                <div class="profile-pic"></div>
+                                <div>
+                                    <span class="username"><b>@M</b></span>
+                                    <span class="time">a month ago</span>
+                                    <p>Why only admin can post??</p>
+                                    <button class="like-button">Like</button>
+                                    <span> likes</span>
+                                </div>
+                            </div> 
+    </body>
+</html>
